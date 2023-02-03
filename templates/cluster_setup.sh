@@ -74,7 +74,7 @@ check_cluster_access_with_new_ca() {
     COUNTER=0
     until `oc --kubeconfig=${KUBECONFIG} get co > /dev/null 2>&1`
     do
-        [[$COUNTER == $MAXIMUM_LOGIN_RETRY]] && stop_if_failed 1 "impossible to access cluster with new ca, installation failed."
+        [[ $COUNTER == $MAXIMUM_LOGIN_RETRY ]] && stop_if_failed 1 "impossible to access cluster with new ca, installation failed."
         pr_info "Checking cluster access with new ca try $COUNTER, hang on...."
         sleep 5
         ((COUNTER++))
@@ -87,7 +87,7 @@ wait_for_resource() {
     local max_retry=20
     until `oc get $resource > /dev/null 2>&1`
     do
-        [[$retry == $max_retry]] && stop_if_failed 1 "impossible to get resource ${resource}"
+        [[ $retry == $max_retry ]] && stop_if_failed 1 "impossible to get resource ${resource}"
         pr_info "waiting for ${resource} to become available try $retry, hang on...."
         sleep 5
         ((retry++))
